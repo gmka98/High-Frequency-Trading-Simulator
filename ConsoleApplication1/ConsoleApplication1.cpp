@@ -72,20 +72,26 @@ struct OrderBook {
                 sellOrder->quantity -= tradeQuantity;
 
                 std::cout << "-> TRADE EXECUTE ! Quantity:" << tradeQuantity << " Price:" << bestAskIt->first << std::endl;
+                
+                if (buyOrder->quantity == 0) {
+                    bestbidIt->second.orders.pop_front();
+                };
+                if (sellOrder->quantity == 0) {
+                    bestAskIt->second.orders.pop_front();
+                };
+                if (bestbidIt->second.orders.empty()) {
+                    bids.erase(bestbidIt);
+                }
+                if (bestAskIt->second.orders.empty()) {
+                    asks.erase(bestAskIt);
+                }
+               
+                ;
             }
-            if (buyOrder->quantity == 0) {
-                bestbidIt->second.orders.pop_front();
-            };
-            if (sellOrder->quantity == 0) {
-                bestAskIt->second.orders.pop_front();
-            };
-            if (bestbidIt->second.orders.empty()) {
-                bids.erase(bestbidIt);
+            else {
+                break;
             }
-            if (bestaskIt->second.orders.empty()) {
-                asks.erase(bestAskIt);
-            }
-            ;
+           
            
         
         }
@@ -107,7 +113,17 @@ int main() {
     book.addOrder(sellOrder);
     std::cout << "Sell order: " << sellOrder->price << std::endl;
 
-    auto buyOrder = std::make_shared<Order>(4, 99.25, 10, OrderSide::BUY);
+    auto firstBuyer = std::make_shared<Order>(4, 99.25, 10, OrderSide::BUY);
+	book.addOrder(firstBuyer);
+    std::cout << "Buy order:" << firstBuyer->price << std::endl;
+
+    auto firtSeller = std::make_shared<Order>(5, 99.25, 4, OrderSide::SELL);
+    book.addOrder(firtSeller);
+    std::cout << "Sell order: " << firtSeller->price << std::endl;
+
+    auto secondSeller = std::make_shared<Order>(6, 99.20, 6, OrderSide::SELL);
+    book.addOrder(secondSeller);
+    std::cout << "Sell order:" << secondSeller->price << std::endl;
 
 
     return 0;
