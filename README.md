@@ -13,5 +13,4 @@ A lightweight, high-performance Limit Order Book (LOB) and backtesting engine wr
 - **Data Structures:** `std::map` for price levels, `std::list` for FIFO queue at each price point.
 - **Build System:** CMake (Free and industry standard)
 
-## 📊 Sample Output & Performance
-[Insère ici un screenshot de la console qui montre les trades exécutés et le PnL final]
+
